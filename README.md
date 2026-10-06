@@ -1,4 +1,4 @@
-# 💰 FinSight AI — Personal Finance Intelligence Agent
+# 💰 ledgerClip — Personal Finance Intelligence Agent
 
 A fully open-source AI agent that turns your bank statements into clear financial insights.
 
@@ -6,7 +6,7 @@ Upload statements from multiple accounts, get automatic categorization powered b
 
 **[Live Demo →](your-streamlit-url-here)**
 
-![FinSight Dashboard](docs/dashboard_preview.png)
+![ledgerClip Dashboard](docs/dashboard_preview.png)
 
 ---
 
@@ -39,8 +39,8 @@ Upload statements from multiple accounts, get automatic categorization powered b
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/yourusername/finsight-ai.git
-cd finsight-ai
+git clone https://github.com/yourusername/ledgerclip.git
+cd ledgerclip
 ```
 
 ### 2. Install dependencies
@@ -64,7 +64,7 @@ streamlit run app.py
 ## 📁 Project Structure
 
 ```
-finsight/
+ledgerclip/
 ├── app.py                          # Main Streamlit app
 ├── requirements.txt
 ├── tools/

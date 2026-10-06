@@ -1,5 +1,5 @@
 """
-app.py ------ FinSight AI — Personal Finance Intelligence Agent
+app.py ------ ledgerClip — Personal Finance Intelligence Agent
 Streamlit app: upload bank statements → categorize → clarify → dashboard
 """
 
@@ -56,7 +56,7 @@ def icon_label(icon_name, text, color="#64748B", size=18):
 
 # ── Page config ───────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="FinSight AI",
+    page_title="ledgerClip",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -150,7 +150,7 @@ init_session()
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown(f"<h2 style='margin-bottom:0;'>{icon_label('wallet', 'FinSight AI', '#10B981', 22)}</h2>", unsafe_allow_html=True)
+    st.markdown(f"<h2 style='margin-bottom:0;'>{icon_label('wallet', 'ledgerClip', '#10B981', 22)}</h2>", unsafe_allow_html=True)
     st.markdown("<p style='color:#64748B; font-style:italic;'>Personal Finance Intelligence</p>", unsafe_allow_html=True)
     st.divider()
     
@@ -188,7 +188,7 @@ with st.sidebar:
 
 # ── Stage 1: Upload ───────────────────────────────────────────────────────────
 if st.session_state.stage == "upload":
-    st.markdown('<div class="main-header">FinSight AI</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-header">ledgerClip</div>', unsafe_allow_html=True)
     st.markdown('<div class="sub-header">Transform raw bank statements into an intelligent, multi-account financial landscape.</div>', unsafe_allow_html=True)
     
     col1, col2 = st.columns([2, 1], gap="large")
@@ -534,4 +534,4 @@ elif st.session_state.stage == "dashboard":
     )
     
     csv = df.to_csv(index=False)
-    st.download_button("⬇️ Extract Compiled Database Ledger (.csv)", csv, "finsight_ledger_export.csv", "text/csv", use_container_width=False)
+    st.download_button("⬇️ Extract Compiled Database Ledger (.csv)", csv, "ledgerclip_ledger_export.csv", "text/csv", use_container_width=False)
