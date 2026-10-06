@@ -10,6 +10,7 @@ import plotly.graph_objects as go
 import tempfile
 import os
 import sys
+from datetime import date
 from pathlib import Path
 
 # Local modules
@@ -148,6 +149,41 @@ def init_session():
 
 init_session()
 
+
+def add_manual_cash_transaction():
+    with st.expander("Add a cash transaction manually"):
+        with st.form("manual_cash_transaction_form"):
+            transaction_date = st.date_input("Date", value=date.today())
+            description = st.text_input("Description", placeholder="e.g. Market purchase")
+            amount = st.number_input("Amount", min_value=0.01, value=0.01, step=1.0, format="%.2f")
+            direction = st.selectbox("Transaction type", ["Cash expense", "Cash income"])
+            category = st.selectbox("Category", CATEGORIES, index=CATEGORIES.index("other"))
+            submitted = st.form_submit_button("Add transaction", type="primary")
+
+        if submitted:
+            if not description.strip():
+                st.error("Enter a description for this transaction.")
+                return
+
+            signed_amount = amount if direction == "Cash income" else -amount
+            transaction = pd.DataFrame([{
+                "date": pd.Timestamp(transaction_date),
+                "description": description.strip(),
+                "amount": signed_amount,
+                "type": "credit" if signed_amount > 0 else "debit",
+                "source_file": "Manual cash entry",
+                "category": category,
+            }])
+            current = st.session_state.transactions
+            if current is None:
+                current = pd.DataFrame(columns=transaction.columns)
+            st.session_state.transactions = pd.concat(
+                [current, transaction], ignore_index=True
+            ).sort_values("date").reset_index(drop=True)
+            st.session_state.stage = "dashboard"
+            st.rerun()
+
+
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown(f"<h2 style='margin-bottom:0;'>{icon_label('wallet', 'ledgerClip', '#10B981', 22)}</h2>", unsafe_allow_html=True)
@@ -239,6 +275,8 @@ if st.session_state.stage == "upload":
                     st.session_state.transactions = combined
                     st.session_state.stage = "categorizing"
                     st.rerun()
+
+        add_manual_cash_transaction()
                     
     with col2:
         st.markdown(f"""
@@ -376,6 +414,7 @@ elif st.session_state.stage == "clarifying":
 
 # ── Stage 4: Dashboard ────────────────────────────────────────────────────────
 elif st.session_state.stage == "dashboard":
+    add_manual_cash_transaction()
     df = st.session_state.transactions.copy()
     df["date"] = pd.to_datetime(df["date"])
     df["month"] = df["date"].dt.to_period("M").astype(str)

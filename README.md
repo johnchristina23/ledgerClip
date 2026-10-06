@@ -17,6 +17,7 @@ Upload statements from multiple accounts, get automatic categorization powered b
 - **Smart clarification** — recurring unknown merchants are surfaced for user confirmation; one-off unknowns default to "other"
 - **Memory** — confirmed merchant mappings are saved locally; next upload is faster and smarter
 - **Interactive dashboard** — spending by category, income vs expenses by month, net savings trend, filterable transaction table
+- **Manual cash entries** — add cash expenses or income directly to the ledger with a date, description, and category
 - **Privacy first** — only transaction descriptions (not amounts) leave your machine for AI categorization. No data stored on any server.
 - **Download** — export your fully categorized transactions as CSV
 
